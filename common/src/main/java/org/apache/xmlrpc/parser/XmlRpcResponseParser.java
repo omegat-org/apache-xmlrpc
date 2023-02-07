@@ -57,13 +57,13 @@ public class XmlRpcResponseParser extends RecursiveTypeParserImpl {
 		if (isSuccess) {
 			super.setResult(pResult);
 		} else {
-			Map map = (Map) pResult;
+			Map<?, ?> map = (Map<?, ?>) pResult;
 			Integer faultCode = (Integer) map.get("faultCode");
 			if (faultCode == null) {
 				throw new SAXParseException("Missing faultCode", getDocumentLocator());
 			}
 			try {
-				errorCode = faultCode.intValue();
+				errorCode = faultCode;
 			} catch (NumberFormatException e) {
 				throw new SAXParseException("Invalid faultCode: " + faultCode,
 											getDocumentLocator());
