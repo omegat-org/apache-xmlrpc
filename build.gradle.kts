@@ -41,6 +41,10 @@ subprojects {
         mavenCentral()
     }
 
+}
+
+allprojects {
+    apply(plugin="signing")
     val signKey = listOf("signingKey", "signing.keyId", "signing.gnupg.keyName").find {project.hasProperty(it)}
     signing {
         when (signKey) {
@@ -154,3 +158,41 @@ project(":xmlrpc-server") {
         testImplementation("org.apache.ws.commons.util:ws-commons-util:1.0.2")
     }
 }
+
+dependencies {
+    runtimeOnly(project(":xmlrpc-common"))
+    runtimeOnly(project(":xmlrpc-client"))
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+            pom {
+                name.set("xmlrpc")
+                description.set(desc)
+                url.set(project_url)
+                licenses {
+                    license {
+                        name.set("Apache License 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0")
+                        distribution.set("repo")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("miurahr")
+                        name.set("Hiroshi Miura")
+                        email.set("miurahr@linux.com")
+                    }
+                }
+                scm {
+                    connection.set(scm_url)
+                    developerConnection.set(scm_url)
+                    url.set(project_url)
+                }
+            }
+        }
+    }
+}
+signing.sign(publishing.publications["mavenJava"])
