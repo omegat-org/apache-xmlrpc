@@ -58,8 +58,7 @@ public class SerializerTest extends TestCase {
 	}
 
 	protected XmlRpcClientConfigImpl getConfig() {
-		XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
-		return config;
+		return new XmlRpcClientConfigImpl();
 	}
 
 	protected XmlRpcStreamRequestConfig getExConfig() {
@@ -79,7 +78,7 @@ public class SerializerTest extends TestCase {
 	 */
 	public void testByteParam() throws Exception {
 		XmlRpcStreamRequestConfig config = getExConfig();
-		XmlRpcRequest request = new XmlRpcClientRequestImpl(config, "byteParam", new Object[]{new Byte((byte)3)});
+		XmlRpcRequest request = new XmlRpcClientRequestImpl(config, "byteParam", new Object[]{(byte) 3});
 		String got = writeRequest(config, request);
 		String expect =
 			"<?xml version=\"1.0\" encoding=\"US-ASCII\"?>"
@@ -93,7 +92,7 @@ public class SerializerTest extends TestCase {
 	 */
 	public void testIntParam() throws Exception {
 		XmlRpcStreamRequestConfig config = getConfig();
-		XmlRpcRequest request = new XmlRpcClientRequestImpl(config, "intParam", new Object[]{new Integer(3)});
+		XmlRpcRequest request = new XmlRpcClientRequestImpl(config, "intParam", new Object[]{3});
 		String got = writeRequest(config, request);
 		String expect =
 			"<?xml version=\"1.0\" encoding=\"US-ASCII\"?>"
@@ -121,9 +120,9 @@ public class SerializerTest extends TestCase {
 	 * @throws Exception The test failed.
 	 */
 	public void testMapParam() throws Exception {
-		final Map map = new HashMap();
-		map.put("2", new Integer(3));
-		map.put("3", new Integer(5));
+		final Map<String, Integer> map = new HashMap<>();
+		map.put("2", 3);
+		map.put("3", 5);
 		final Object[] params = new Object[]{map};
 		XmlRpcStreamRequestConfig config = getConfig();
 		XmlRpcRequest request = new XmlRpcClientRequestImpl(config, "mapParam", params);
@@ -132,8 +131,8 @@ public class SerializerTest extends TestCase {
 			"<?xml version=\"1.0\" encoding=\"US-ASCII\"?>"
 			+ "<methodCall><methodName>mapParam</methodName>"
 			+ "<params><param><value><struct>"
-			+ "<member><name>3</name><value><i4>5</i4></value></member>"
 			+ "<member><name>2</name><value><i4>3</i4></value></member>"
+			+ "<member><name>3</name><value><i4>5</i4></value></member>"
 			+ "</struct></value></param></params></methodCall>";
 		assertEquals(expect, got);
 	}
@@ -143,10 +142,10 @@ public class SerializerTest extends TestCase {
     public void testCalendarParam() throws Exception {
         TimeZone tz = TimeZone.getTimeZone("GMT");
         Calendar cal1 = Calendar.getInstance(tz);
-        cal1.set(1933, 5, 12, 11, 7, 21);
+        cal1.set(1933, Calendar.JUNE, 12, 11, 7, 21);
         cal1.set(Calendar.MILLISECOND, 311);
         Calendar cal2 = Calendar.getInstance(TimeZone.getDefault());
-        cal2.set(1933, 5, 12, 11, 7, 21);
+        cal2.set(1933, Calendar.JUNE, 12, 11, 7, 21);
         cal2.set(Calendar.MILLISECOND, 311);
         XmlRpcStreamRequestConfig config = getExConfig();
         XmlRpcRequest request = new XmlRpcClientRequestImpl(config, "dateParam", new Object[]{cal1, cal2.getTime()});
@@ -166,8 +165,8 @@ public class SerializerTest extends TestCase {
      * map with integers as the keys?
      */
     public void testIntegerKeyMap() throws Exception {
-        Map map = new HashMap();
-        map.put(new Integer(1), "one");
+        Map<Integer, String> map = new HashMap<>();
+        map.put(1, "one");
         XmlRpcStreamRequestConfig config = getExConfig();
         XmlRpcRequest request = new XmlRpcClientRequestImpl(config, "integerKeyMap", new Object[]{map});
         String got = writeRequest(config, request);
@@ -194,10 +193,10 @@ public class SerializerTest extends TestCase {
         xr.setContentHandler(parser);
         xr.parse(new InputSource(new StringReader(expect)));
         assertEquals("integerKeyMap", parser.getMethodName());
-        List params = parser.getParams();
+		List<?> params = (List<?>)parser.getParams();
         assertEquals(1, params.size());
-        Map paramMap = (Map) params.get(0);
+        Map<?, ?> paramMap = (Map<?, ?>) params.get(0);
         assertEquals(1, paramMap.size());
-        assertEquals("one", paramMap.get(new Integer(1)));
+        assertEquals("one", paramMap.get(1));
     }
 }
