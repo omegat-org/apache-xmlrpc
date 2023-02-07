@@ -230,7 +230,7 @@ public class XmlRpcClient extends XmlRpcController {
 	/** Returns the clients instance of
 	 * {@link org.apache.xmlrpc.serializer.XmlWriterFactory}.
 	 * @return A factory for creating instances of
-	 * {@link org.apache.ws.commons.serialize.XMLWriter}.
+	 *  org.apache.ws.commons.serialize.XMLWriter.
 	 */
 	public XmlWriterFactory getXmlWriterFactory() {
 		return xmlWriterFactory;
@@ -239,7 +239,7 @@ public class XmlRpcClient extends XmlRpcController {
 	/** Sets the clients instance of
 	 * {@link org.apache.xmlrpc.serializer.XmlWriterFactory}.
 	 * @param pFactory A factory for creating instances of
-	 * {@link org.apache.ws.commons.serialize.XMLWriter}.
+	 *  org.apache.ws.commons.serialize.XMLWriter.
 	 */
 	public void setXmlWriterFactory(XmlWriterFactory pFactory) {
 		xmlWriterFactory = pFactory;

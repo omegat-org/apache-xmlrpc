@@ -35,10 +35,15 @@ subprojects {
             languageVersion.set(JavaLanguageVersion.of(8))
         }
         withSourcesJar()
+        withJavadocJar()
     }
 
     repositories {
         mavenCentral()
+    }
+
+    tasks.javadoc {
+       setFailOnError(false)
     }
 
 }
