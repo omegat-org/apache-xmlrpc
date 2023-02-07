@@ -1,5 +1,5 @@
-rootProject.name="apache-xmlrpc"
+rootProject.name="xmlrpc"
 include 'server', 'client', 'common'
-project(":server").name = "apache-xmlrpc-server"
-project(":client").name = "apache-xmlrpc-client"
-project(":common").name = "apache-xmlrpc-common"
+project(":server").name = "xmlrpc-server"
+project(":client").name = "xmlrpc-client"
+project(":common").name = "xmlrpc-common"

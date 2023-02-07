@@ -62,8 +62,8 @@ subprojects {
     }
 }
 
-project(":apache-xmlrpc-common") {
-   //  = "apache-xmlrpc-common"
+project(":xmlrpc-common") {
+   //  = "xmlrpc-common"
     dependencies {
         implementation("jaxme:jaxmeapi:0.5.1")
         implementation("org.apache.ws.commons.util:ws-commons-util:1.0.2")
@@ -74,7 +74,7 @@ project(":apache-xmlrpc-common") {
             create<MavenPublication>("xmlrpcCommon") {
                 from(components["java"])
                 pom {
-                    name.set("apache-xmlrpc-common")
+                    name.set("xmlrpc-common")
                     description.set(desc)
                     url.set(project_url)
                     licenses {
@@ -103,9 +103,9 @@ project(":apache-xmlrpc-common") {
     signing.sign(publishing.publications["xmlrpcCommon"])
 }
 
-project(":apache-xmlrpc-client") {
+project(":xmlrpc-client") {
     dependencies {
-        implementation(project(":apache-xmlrpc-common"))
+        implementation(project(":xmlrpc-common"))
         implementation("commons-httpclient:commons-httpclient:3.0.1")
     }
 
@@ -114,7 +114,7 @@ project(":apache-xmlrpc-client") {
             create<MavenPublication>("xmlrpcClient") {
                 from(components["java"])
                 pom {
-                    name.set("apache-xmlrpc-client")
+                    name.set("xmlrpc-client")
                     description.set(desc)
                     url.set(project_url)
                     licenses {
@@ -143,10 +143,10 @@ project(":apache-xmlrpc-client") {
     signing.sign(publishing.publications["xmlrpcClient"])
 }
 
-project(":apache-xmlrpc-server") {
+project(":xmlrpc-server") {
     dependencies {
-        implementation(project(":apache-xmlrpc-common"))
-        implementation(project(":apache-xmlrpc-client"))
+        implementation(project(":xmlrpc-common"))
+        implementation(project(":xmlrpc-client"))
         implementation("commons-httpclient:commons-httpclient:3.0.1")
         implementation("commons-logging:commons-logging:1.1")
         implementation("javax.servlet:servlet-api:2.4")
