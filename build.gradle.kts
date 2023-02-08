@@ -25,7 +25,7 @@ val desc: String by project
 val project_url: String by project
 val scm_url: String by project
 
-subprojects {
+allprojects {
     apply(plugin="java-library")
     apply(plugin="maven-publish")
     apply(plugin="signing")
@@ -43,13 +43,9 @@ subprojects {
     }
 
     tasks.javadoc {
-       setFailOnError(false)
+        setFailOnError(false)
     }
 
-}
-
-allprojects {
-    apply(plugin="signing")
     val signKey = listOf("signingKey", "signing.keyId", "signing.gnupg.keyName").find {project.hasProperty(it)}
     signing {
         when (signKey) {
