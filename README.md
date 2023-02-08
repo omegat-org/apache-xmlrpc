@@ -22,7 +22,7 @@ For gradle,
 
 ```groovy
 dependencies {
-    implementation 'org.omegat:xmlrpc:3.1.3-20230208'
+    implementation 'org.omegat:xmlrpc:3.1.3-20230209'
 }
 ```
 
