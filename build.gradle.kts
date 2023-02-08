@@ -7,7 +7,7 @@ plugins {
 
 allprojects {
     group = "org.omegat"
-    version = "3.1.3-20230209"
+    version = "3.1.3-20230208"
 }
 
 nexusPublishing {
